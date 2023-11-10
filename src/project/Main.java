@@ -19,13 +19,27 @@ public class Main {
         }
         return arr;
     }
+
+    private static boolean isSorted(Integer[] arr) {
+        for(int i=0 ; i<arr.length-1; i++) {
+            if (arr[i] > arr[i+1]) {
+                return false;
+            }
+        }
+        return true;
+    }
     private static void testMergeSort(int elements, int threads) {
         Integer[] arr = generateRandomIntArray(elements);
         LocalDateTime start = LocalDateTime.now();
         ParallelMergesort.sort(arr, threads);
         LocalDateTime end = LocalDateTime.now();
-        System.out.printf("%d elements sorted for %d milliseconds with %d threads%n", elements,
-                start.until(end, ChronoUnit.MILLIS), threads);
+        if (isSorted(arr)) {
+            System.out.printf("%d elements sorted for %d milliseconds with %d threads%n", elements,
+                    start.until(end, ChronoUnit.MILLIS), threads);
+        }
+        else {
+            System.out.printf("Test failed%n");
+        }
     }
     public static void main(String args[]) {
         //System.out.println(Arrays.toString(generateRandomIntArray(5)));
