@@ -4,7 +4,7 @@ package project.myparallelmergesort;
  * Sorts interval [initL,initR] in array A using the specified amount of threads
  * Represents a single thread of execution
  */
-class RunnableSorter <T> implements Runnable{
+class RunnableSorter <T extends Comparable<T>> implements Runnable{
 
     private T[] A,B;
     private int initL, initR;
@@ -63,7 +63,23 @@ class RunnableSorter <T> implements Runnable{
     }
 
     private void merge(int l, int r, int mid) {
-
-
+        int li = l, ri = mid + 1;
+        for (int i = l; i <= r; i++) {
+            if (li == mid+1) {
+                B[i] = A[ri++];
+            }
+            else if (ri == r + 1) {
+                B[i] = A[li++];
+            }
+            else {
+                if (A[li].compareTo(A[ri]) <= 0) {
+                    B[i] = A[li++];
+                }
+                else {
+                    B[i] = A[ri++];
+                }
+            }
+        }
+        System.arraycopy(B, l, A, l, r - l + 1 );
     }
 }
