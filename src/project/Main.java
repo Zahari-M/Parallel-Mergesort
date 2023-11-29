@@ -30,9 +30,11 @@ public class Main {
     }
     private static void testMergeSort(int elements, int threads) {
         Integer[] arr = generateRandomIntArray(elements);
+
         LocalDateTime start = LocalDateTime.now();
         ParallelMergesort.sort(arr, threads);
         LocalDateTime end = LocalDateTime.now();
+
         if (isSorted(arr)) {
             System.out.printf("%d elements sorted for %d milliseconds with %d threads%n", elements,
                     start.until(end, ChronoUnit.MILLIS), threads);
@@ -42,8 +44,12 @@ public class Main {
         }
     }
     public static void main(String args[]) {
-        //System.out.println(Arrays.toString(generateRandomIntArray(5)));
         testMergeSort(1000000, 1);
         testMergeSort(1000000, 4);
+        /*
+        Output:
+        1000000 elements sorted for 545 milliseconds with 1 threads
+        1000000 elements sorted for 197 milliseconds with 4 threads
+         */
     }
 }
